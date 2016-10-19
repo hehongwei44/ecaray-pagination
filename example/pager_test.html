@@ -1,78 +1,64 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<title>test page</title>
-<script type="text/javascript" src="../lib/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="../src/kkpager.js"></script>
-<link rel="stylesheet" type="text/css" href="../src/kkpager_blue.css" />
+    <title>test page</title>
+    <script type="text/javascript" src="../lib/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../src/ecaray-pagination.js"></script>
+    <link rel="stylesheet" type="text/css" href="../src/kkpager_orange.css"/>
+    <style>
+        #kkpager2 {
+            clear: both;
+            color: #999;
+            padding: 5px 0px 5px 0px;
+            font-size: 13px;
+        }
+    </style>
 </head>
 <body>
 <div style="width:800px;margin:0 auto;">
-<div id="kkpager"></div>
+    <div id="kkpager" class="kkpager"></div>
+    <div id="kkpager2" class="kkpager"></div>
 </div>
 <script type="text/javascript">
-function getParameter(name) { 
-	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); 
-	var r = window.location.search.substr(1).match(reg); 
-	if (r!=null) return unescape(r[2]); return null;
-}
 
-//init
-$(function(){
-	var totalPage = 20;
-	var totalRecords = 390;
-	var pageNo = getParameter('pno');
-	if(!pageNo){
-		pageNo = 1;
-	}
-	//生成分页
-	//有些参数是可选的，比如lang，若不传有默认值
-	kkpager.generPageHtml({
-		pno : pageNo,
-		//总页码
-		total : totalPage,
-		//总数据条数
-		totalRecords : totalRecords,
-		//链接前部
-		hrefFormer : 'pager_test',
-		//链接尾部
-		hrefLatter : '.html',
-		getLink : function(n){
-		    console.log(n);
-			//return this.hrefFormer + this.hrefLatter + "?pno="+n;
-		}
-		/*
-		,lang				: {
-			firstPageText			: '首页',
-			firstPageTipText		: '首页',
-			lastPageText			: '尾页',
-			lastPageTipText			: '尾页',
-			prePageText				: '上一页',
-			prePageTipText			: '上一页',
-			nextPageText			: '下一页',
-			nextPageTipText			: '下一页',
-			totalPageBeforeText		: '共',
-			totalPageAfterText		: '页',
-			currPageBeforeText		: '当前第',
-			currPageAfterText		: '页',
-			totalInfoSplitStr		: '/',
-			totalRecordsBeforeText	: '共',
-			totalRecordsAfterText	: '条数据',
-			gopageBeforeText		: '&nbsp;转到',
-			gopageButtonOkText		: '确定',
-			gopageAfterText			: '页',
-			buttonTipBeforeText		: '第',
-			buttonTipAfterText		: '页'
-		}*/
-		
-		//,
-		//mode : 'click',//默认值是link，可选link或者click
-		//click : function(n){
-		//	this.selectPage(n);
-		//  return false;
-		//}
-	});
-});
+    $(function () {
+        var totalPage = 16;
+        var totalRecords = 390;
+        var pageNo = 1;
+
+        var pagination = new Pagination({});
+        var pagination2 = new Pagination({});
+
+        pagination.generatePageHTML({
+            pno: pageNo,
+            //总页码
+            total: totalPage,
+            //总数据条数
+            totalRecords: totalRecords,
+            click: function (n) {
+                console.log(n);
+                // do something
+                //手动选中按钮
+                this.selectPage(n);
+                return false;
+            }
+        });
+        pagination2.generatePageHTML({
+            pagerid: 'kkpager2',
+            pno: pageNo,
+            //总页码
+            total: totalPage,
+            //总数据条数
+            totalRecords: totalRecords,
+            click: function (n) {
+                console.log(n);
+                // do something
+                //手动选中按钮
+                this.selectPage(n);
+                return false;
+            }
+        });
+    });
 </script>
 
 </body>
